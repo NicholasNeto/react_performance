@@ -1,5 +1,5 @@
 
-interface SearchResultItemProps {
+interface ProductItemProps {
     product: {
         id: number;
         price: number;
@@ -8,7 +8,7 @@ interface SearchResultItemProps {
 }
 
 
-export function SearchResultItem({ product }: SearchResultItemProps) {
+export function ProductItem({ product }: ProductItemProps) {
     return (
         <div>
             <div>{product.title} - <strong>{product.price}</strong></div>

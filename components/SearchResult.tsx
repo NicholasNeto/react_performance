@@ -1,4 +1,4 @@
-import { SearchResultItem } from "./SearchResultItem"
+import { ProductItem } from "./ProductItem"
 
 
 interface SearchResultProps {
@@ -13,7 +13,7 @@ export function SearchResult({ results }: SearchResultProps) {
     return (
         <div>
             {results.map(product => {
-                return <SearchResultItem product={product} />
+                return <ProductItem product={product} />
             })}
         </div>
     )
