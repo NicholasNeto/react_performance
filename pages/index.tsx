@@ -29,7 +29,7 @@ export default function Home() {
       currency: 'BRL'
     })
 
-    const products = data.map(product => {
+    const products = data.map((product: any) => {
       return {
         id: product.id,
         title: product.title,
