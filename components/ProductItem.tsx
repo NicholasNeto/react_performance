@@ -1,5 +1,12 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
+import dynamic from 'next/dynamic'  // React --> React.lazy
+import { AddProductToWishListProps } from './AddProductToWishList'
 
+const AddProductToWishList = dynamic<AddProductToWishListProps>(() => {
+    return import('./AddProductToWishList').then((mod) => mod.AddProductToWishList)
+}, {
+    loading: () => (<span>Carregando...</span>)
+})
 
 interface ProductItemProps {
     product: {
@@ -11,15 +18,41 @@ interface ProductItemProps {
     onAddWishList: (id: number) => void,
 }
 
-
 function ProductItemComponent({ product, onAddWishList }: ProductItemProps) {
+
+    const [isAddingToWishList, setIsAddingToWishList] = useState(false)
+
+
+    /*
+
+    libs exemplo : moment | lodash importação somente se o usuario for utilizar
+    async function showFormattedDate(){
+        const { format } = await import('date-fns')
+
+        format()
+    }
+    
+    */
+
+
+
+
     return (
         <div>
             <div>
                 {product.title} - <strong>{product.priceFormatted}</strong> -
-                <button onClick={() => onAddWishList}>
+                <button onClick={() => setIsAddingToWishList(true)}>
                     Add Lista Favoritos
                 </button>
+
+                {isAddingToWishList &&
+                    <AddProductToWishList
+                        onAddToWishList={() => onAddWishList(product.id)}
+                        onRequestClose={() => setIsAddingToWishList(false)}
+                    />
+                }
+
+
             </div>
         </div>
     )
