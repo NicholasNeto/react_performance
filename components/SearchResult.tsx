@@ -7,16 +7,23 @@ interface SearchResultProps {
         id: number;
         price: number,
         title: string,
+        priceFormatted: string,
     }>;
     onAddWishList: (id: number) => void,
+    totalPrice: number,
 }
 
-export function SearchResult({ results, onAddWishList }: SearchResultProps) {
-    const totalPrice = useMemo(() => {
-        return results.reduce((total, product) => {
-            return total + product.price;
-        }, 0)
-    }, [results])
+export function SearchResult({ results, onAddWishList, totalPrice }: SearchResultProps) {
+
+
+    /*
+            const totalPrice = useMemo(() => {
+            return results.reduce((total, product) => {
+                return total + product.price;
+            }, 0)
+        }, [results])
+    
+    */
 
     return (
         <div>
@@ -50,4 +57,12 @@ useMemo
 
 1. Calculos pesados
 2. Igualdade referencial (quando a gente repassa aquela informação a um componente filho)
+*/
+
+/*
+    useCallback
+    Somente para functions, isso evita que
+    toda vez que fizermos Prop Drilling seja feito
+    o re-render do component SearcResult,  porque
+    semrpe estaremos passando a mesma referencia.
 */
