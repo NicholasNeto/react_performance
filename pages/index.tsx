@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useCallback, useState } from "react"
 import { SearchResult } from '../components/SearchResult'
 
 export default function Home() {
@@ -17,10 +17,18 @@ export default function Home() {
     setResults(data)
   }
 
+  /*
+      useCallback  
+      Somente para functions, isso evita que 
+      toda vez que fizermos Prop Drilling seja feito 
+      o re-render do component SearcResult,  porque 
+      semrpe estaremos passando a mesma referencia. 
+  */
 
-  async function addToWishList(id: number) {
+
+  const addToWishList = useCallback(async (id: number) => {
     console.log(id)
-  }
+  }, []) // se precisar de alguma informação de la de dentro poderia colocar no array, igual o useEffect
 
 
   return (
