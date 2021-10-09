@@ -1,3 +1,4 @@
+import { List, ListRowRenderer } from 'react-virtualized'
 import { useMemo } from 'react';
 import { ProductItem } from "./ProductItem"
 
@@ -25,20 +26,42 @@ export function SearchResult({ results, onAddWishList, totalPrice }: SearchResul
     
     */
 
+
+    const rowRenderer: ListRowRenderer = ({ index, key, style }) => {
+        return (
+            <div key={key} style={style} >
+                <ProductItem
+                    product={results[index]}
+                    onAddWishList={onAddWishList}
+                />
+            </div>
+        )
+    }
+
     return (
         <div>
             <h2>{totalPrice}</h2>
 
             {/* <ComponentQualquer teste={totalPrice }>   Neste momento vale a pena usar o hook useMemo para poder passar a mesma referencia nesta props*/}
 
-            {results.map(product => {
+
+            <List
+                height={300}
+                rowHeight={30}
+                width={900}
+                overscanRowCount={5}
+                rowCount={results.length}
+                rowRenderer={rowRenderer}
+            />
+
+            {/* {results.map(product => {
                 return (
                     <ProductItem
                         product={product}
                         onAddWishList={onAddWishList}
                     />
                 )
-            })}
+            })} */}
         </div>
     )
 }
