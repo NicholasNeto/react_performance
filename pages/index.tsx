@@ -17,6 +17,12 @@ export default function Home() {
     setResults(data)
   }
 
+
+  async function addToWishList(id: number) {
+    console.log(id)
+  }
+
+
   return (
     <div>
       <h1>Search</h1>
@@ -30,7 +36,10 @@ export default function Home() {
       </form>
 
 
-      <SearchResult results={results} />
+      <SearchResult
+        results={results}
+        onAddWishList={addToWishList}
+      />
 
     </div>
   )

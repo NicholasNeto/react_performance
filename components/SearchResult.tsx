@@ -8,9 +8,10 @@ interface SearchResultProps {
         price: number,
         title: string,
     }>;
+    onAddWishList: (id: number) => void,
 }
 
-export function SearchResult({ results }: SearchResultProps) {
+export function SearchResult({ results, onAddWishList }: SearchResultProps) {
     const totalPrice = useMemo(() => {
         return results.reduce((total, product) => {
             return total + product.price;
@@ -21,8 +22,15 @@ export function SearchResult({ results }: SearchResultProps) {
         <div>
             <h2>{totalPrice}</h2>
 
+            {/* <ComponentQualquer teste={totalPrice }>   Neste momento vale a pena usar o hook useMemo para poder passar a mesma referencia nesta props*/}
+
             {results.map(product => {
-                return <ProductItem product={product} />
+                return (
+                    <ProductItem
+                        product={product}
+                        onAddWishList={onAddWishList}
+                    />
+                )
             })}
         </div>
     )
@@ -30,9 +38,9 @@ export function SearchResult({ results }: SearchResultProps) {
 
 
 /*
-Memo 
+Memo
 1. Pure Functional Components
-2. Renders too often 
+2. Renders too often
 3. Re-renders with same props
 4. Medium to big size
 */
