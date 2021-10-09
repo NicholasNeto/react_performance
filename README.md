@@ -2,6 +2,40 @@
 ## Notas
 
 
+## Dynamic import (Code Splitting) | React.lazy
+
+Esta técnica permite que você controle quando um componente ou lib deve ser importada na sua aplicação. 
+Imagina um componente de modal de confirmação de uma ação que dentro dele utilize uma lib pesada ou até uma função que o usuario só vai utilizar dependendo de uma determinada ação. 
+
+Podemos applicar esta técnica, o ao utilizar next.js devemos utilizar o Dynamic porque é importe que leva em consideração o Server Side Rendering também, não só a aplicação do lado do cliente. como no caso de um projeto criado com create react app
+
+
+```bash
+
+import dynamic from 'next/dynamic'  // React --> React.lazy
+import { AddProductToWishListProps } from './AddProductToWishList'
+
+const AddProductToWishList = dynamic<AddProductToWishListProps>(() => {
+    return import('./AddProductToWishList').then((mod) => mod.AddProductToWishList)
+}, {
+    loading: () => (<span>Carregando...</span>)
+})
+
+```
+
+```bash
+function exemplo: 
+moment | lodash importação somente se o usuario for utilizar
+
+async function showFormattedDate(){
+    const { format } = await import('date-fns')
+
+    format()
+}
+
+```
+
+
 ## Memo
 Uma forma de auxiliar o algoritimo de reconciliação do React. 
 Com o Memo você consegue indicar qual momento ele deve criar uma nova versão do componente e também consegue indicar quando deve comparar com a versão anterior. Otimizando a performace do React. 
